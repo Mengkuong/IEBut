@@ -27,7 +27,7 @@ Route::middleware('auth:api')->prefix('user')->group(function (){
             'message' => 'Successfully logged out'
         ]);
     })->middleware('auth:api');
-
+    Route::apiResource("profile", \App\Http\Controllers\API\User\UserProfileController::class);
 });
 
 
