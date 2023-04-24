@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\DB;
 class ViewSellController extends Controller
 {
      public function index(){
-         $this->authorize('view-sell-shares');
          $sell = DB::table('sells')->select('id', 'user_id','price_sell', 'shares','phone_number','date_sell')
              ->latest()->paginate(10);
          return response($sell);
-     }
+   }
 
 }

@@ -72,11 +72,6 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
-        Gate::define('view-sell-shares', function (User $user){
-            if ($user->role_id===1){
-                return true;
-            }
-        });
         Gate::define('view-finance-super-admin', function (User $user){
             if ($user->role_id===1){
                 return true;
@@ -108,6 +103,21 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
         Gate::define('accept-reject', function (User $user){
+            if ($user->role_id===1){
+                return true;
+            }
+        });
+        Gate::define('transfer-super', function (User $user){
+            if ($user->role_id===1){
+                return true;
+            }
+        });
+        Gate::define('transfer-user', function (User $user){
+            if ($user->role_id===3){
+                return true;
+            }
+        });
+        Gate::define('view-sell', function (User $user){
             if ($user->role_id===1){
                 return true;
             }

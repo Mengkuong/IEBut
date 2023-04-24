@@ -114,8 +114,14 @@ Route::middleware('auth:api')->prefix('user')->group(function (){
     Route::get('View_Post', [\App\Http\Controllers\API\SuperAdmin\ViewPostController::class,'ViewAll']);
 
                             // Wallet
-    Route::post('deposit', [\App\Http\Controllers\API\User\WalletController::class,'deposit']);
-    Route::post('withdraw', [\App\Http\Controllers\API\User\WalletController::class,'withdraw']);
+//    Route::post('deposit', [\App\Http\Controllers\API\User\depositController::class,'deposit']);
+    Route::post('transfer', [\App\Http\Controllers\API\User\transferController::class,'transfer']);
+    Route::get('balance', [\App\Http\Controllers\API\User\BalanceController::class,'balance']);
+
+
+    Route::post('Deposit', [\App\Http\Controllers\API\SuperAdmin\DipositController::class,'deposit']);
+    Route::post('Transfer', [\App\Http\Controllers\API\SuperAdmin\transferController::class,'transfer']);
+
 
 });
 
