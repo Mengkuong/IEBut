@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProfileResource extends JsonResource
+class BuyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,14 +16,13 @@ class ProfileResource extends JsonResource
     {
         return [
             "id"=> $this->id,
-            "image" => env("APP_URL").'/storage/images/'.$this->image,
-            'TEST' => $this->image,
-            "email" => $this->email,
-            "address" => $this->address,
-            "phone" => $this->phone,
-            "bio" => $this->bio,
-            "user" => new UserJson($this->user)
-
+            "name_seller" => $this->name_seller,
+            "price_buy" => $this->price_buy,
+            "shares" => $this->shares,
+            "phone_number_buyer" => $this->phone_number_buyer,
+            "phone_number_seller" => $this->phone_number_seller,
+            "date_buy" => $this->date_buy,
+            "buy_form" => $this->buy_form,
         ];
     }
 }

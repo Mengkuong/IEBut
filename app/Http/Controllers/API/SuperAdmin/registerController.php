@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Admin;
+namespace App\Http\Controllers\API\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -13,26 +13,14 @@ class registerController extends Controller
             'name' => 'required',
             'email' => 'required|string|unique:users',
             'password' => 'required|string|confirmed',
-            'sex' =>'required',
-            'dob' => 'required',
-            'id_card_number' => 'required',
-            'address' => 'required',
-            'phone_number' => 'required',
-            'price_per_share' => 'required',
-            'date_buy_share' => 'required',
+            'role_id' => 'required',
         ]);
 
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'sex' => $request->sex,
-            'dob' =>$request->dob,
-            'id_card_number' => $request->id_card_number,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number,
-            'price_per_share' => $request->price_per_share,
-            'date_buy_share' => $request->date_buy_share,
+            'role_id' => $request->role_id,
 
         ]);
 

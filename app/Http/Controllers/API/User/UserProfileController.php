@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 class UserProfileController extends Controller
 {
     public function index(Request $request){
+        $this->authorize('user-profile');
         $query = Profile::query();
         $query->post($request);
         $query->where("user_id",auth()->user()->id);
@@ -22,6 +23,7 @@ class UserProfileController extends Controller
     }
     public function store(StoreprofileRequest $request){
 
+        $this->authorize('user-profile');
         $requestKey = $request->all();
         $requestKey = Arr::add($requestKey, 'user_id',auth()->user()->id);
 
@@ -48,6 +50,7 @@ class UserProfileController extends Controller
     }
     public function show(Profile $profile)
     {
+        $this->authorize('user-profile');
         if (Auth::user()->id !== $profile->user_id)
         {
             return response()->json([
@@ -109,6 +112,7 @@ class UserProfileController extends Controller
            return new ProfileResource($profile);
     }
     public function destroy(Profile $profile){
+        $this->authorize('user-profile');
         if (Storage::exists("public/images/".$profile->image)) {
             Storage::delete("public/images/".$profile->image);
         }

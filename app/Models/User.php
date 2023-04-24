@@ -7,6 +7,7 @@ use Couchbase\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -31,6 +32,7 @@ class User extends Authenticatable
         'buy_share',
         'price_per_share',
         'date_buy_share',
+        'role_id'
     ];
 
     /**
@@ -51,4 +53,32 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function role(){
+        return $this->belongsTo(\App\Models\Role::class);
+    }
+    public function scopeUserSearch($query, Request $request){
+
+        if ($request->has("search")) {
+            $search = $request->get("search");
+            $query->where('name', "LIKE", "%$search%")->orWhere("email", "LIKE", "%$search%");
+        }
+
+        return $query;
+    }
+    public function post(){
+        return $this->hasMany(Post::class);
+
+    }
+    public function profile()
+    {
+        return $this->hasMany(Profile::class);
+    }
+    public function certificate(){
+        return $this->hasMany(Certificate::class);
+
+    }
+    public function sell(){
+        return $this->hasMany(Sell::class);
+
+    }
 }

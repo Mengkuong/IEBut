@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProfileResource extends JsonResource
+class CertificateResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,15 +15,11 @@ class ProfileResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id"=> $this->id,
+            'id' => $this->id,
+            'title' => $this->title,
             "image" => env("APP_URL").'/storage/images/'.$this->image,
             'TEST' => $this->image,
-            "email" => $this->email,
-            "address" => $this->address,
-            "phone" => $this->phone,
-            "bio" => $this->bio,
-            "user" => new UserJson($this->user)
-
+            'description' => $this->description,
         ];
     }
 }
