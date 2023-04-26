@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class transferController extends Controller
 {
+    public function story(Request $request){
+        $this->authorize('transfer-super');
+        $query = deposit::query();
+//        $query->userview($request);
+        $query->where("send_by",auth()->user()->id);
+        $transfer = $query->latest()->paginate(10);
+        return response([
+            'data' => $transfer,
+        ],200);
+    }
     public function transfer(TransferRequest $request)
     {
         $this->authorize('transfer-super');

@@ -5,12 +5,24 @@ namespace App\Http\Controllers\API\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransferRequest;
 use App\Models\deposit;
+use App\Models\Post;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class transferController extends Controller
 {
+    public function story(Request $request){
+        $this->authorize('transfer-user');
+        $query = deposit::query();
+//        $query->userview($request);
+        $query->where("send_by",auth()->user()->id);
+        $transfer = $query->latest()->paginate(10);
+        return response([
+            'data' => $transfer,
+        ],200);
+    }
 
 
     public function transfer(TransferRequest $request)

@@ -117,11 +117,22 @@ Route::middleware('auth:api')->prefix('user')->group(function (){
 //    Route::post('deposit', [\App\Http\Controllers\API\User\depositController::class,'deposit']);
     Route::post('transfer', [\App\Http\Controllers\API\User\transferController::class,'transfer']);
     Route::get('balance', [\App\Http\Controllers\API\User\BalanceController::class,'balance']);
-
+    Route::get('story', [\App\Http\Controllers\API\User\transferController::class,'story']);
 
     Route::post('Deposit', [\App\Http\Controllers\API\SuperAdmin\DipositController::class,'deposit']);
     Route::post('Transfer', [\App\Http\Controllers\API\SuperAdmin\transferController::class,'transfer']);
+    Route::get('story_super', [\App\Http\Controllers\API\SuperAdmin\transferController::class,'story']);
 
+
+
+    Route::get('get', [\App\Http\Controllers\API\chat\UserController::class,'index']);
+
+    Route::post('chat', [\App\Http\Controllers\API\Chat\ChatController::class,'store']);
+    Route::get('chat', [\App\Http\Controllers\API\Chat\ChatController::class,'index']);
+    Route::get('chat/{id}', [\App\Http\Controllers\API\Chat\ChatController::class,'show']);
+
+    Route::post('chat_message', [\App\Http\Controllers\API\Chat\ChatMessageController::class,'store']);
+    Route::get('chat_message', [\App\Http\Controllers\API\Chat\ChatMessageController::class,'index']);
 
 });
 
