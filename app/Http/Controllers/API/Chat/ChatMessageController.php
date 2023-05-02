@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Chat;
 
+use App\Events\NewMessageSent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GetMessageRequest;
 use App\Http\Requests\StoreMessageRequest;
@@ -48,34 +49,34 @@ class ChatMessageController extends Controller
             'message'  => 'Message has been sent successfully.'
         ]);
     }
-//    private function sendNotificationToOther(ChatMessage $chatMessage) : void {
-//
-//        // TODO move this event broadcast to observer
-//        broadcast(new NewMessageSent($chatMessage))->toOthers();
-//
-//        $user = auth()->user();
-//        $userId = $user->id;
-//
-//        $chat = Chat::where('id',$chatMessage->chat_id)
-//            ->with(['participants'=>function($query) use ($userId){
-//                $query->where('user_id','!=',$userId);
-//            }])
-//            ->first();
-//        if(count($chat->participants) > 0){
-//            $otherUserId = $chat->participants[0]->user_id;
-//
-//            $otherUser = User::where('id',$otherUserId)->first();
-//            $otherUser->sendNewMessageNotification([
-//                'messageData'=>[
-//                    'senderName'=>$user->username,
-//                    'message'=>$chatMessage->message,
-//                    'chatId'=>$chatMessage->chat_id
-//                ]
-//            ]);
-//
-//       }
+    private function sendNotificationToOther(ChatMessage $chatMessage) : void {
 
- //   }
+        // TODO move this event broadcast to observer
+        broadcast(new NewMessageSent($chatMessage))->toOthers();
+
+        $user = auth()->user();
+        $userId = $user->id;
+
+        $chat = Chat::where('id',$chatMessage->chat_id)
+            ->with(['participants'=>function($query) use ($userId){
+                $query->where('user_id','!=',$userId);
+            }])
+            ->first();
+        if(count($chat->participants) > 0){
+            $otherUserId = $chat->participants[0]->user_id;
+
+            $otherUser = User::where('id',$otherUserId)->first();
+            $otherUser->sendNewMessageNotification([
+                'messageData'=>[
+                    'senderName'=>$user->username,
+                    'message'=>$chatMessage->message,
+                    'chatId'=>$chatMessage->chat_id
+                ]
+            ]);
+
+       }
+
+    }
 
 
 }
