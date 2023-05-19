@@ -15,13 +15,13 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
+    'paths' => ['api/*','login', 'logout'],
     'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE'],
     'allowed_origins' => ['*'],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
     'max_age' => 0,
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 
 ];
